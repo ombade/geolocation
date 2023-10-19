@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/geolocation/static/css/main.caf0a04f.css",
+    "main.js": "/geolocation/static/js/main.3dcd1f38.js",
+    "static/js/787.bdb0affa.chunk.js": "/geolocation/static/js/787.bdb0affa.chunk.js",
+    "static/media/logo.svg": "/geolocation/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/geolocation/index.html",
+    "main.caf0a04f.css.map": "/geolocation/static/css/main.caf0a04f.css.map",
+    "main.3dcd1f38.js.map": "/geolocation/static/js/main.3dcd1f38.js.map",
+    "787.bdb0affa.chunk.js.map": "/geolocation/static/js/787.bdb0affa.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.caf0a04f.css",
+    "static/js/main.3dcd1f38.js"
+  ]
+}
