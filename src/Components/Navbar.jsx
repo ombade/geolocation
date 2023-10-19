@@ -19,29 +19,49 @@ import {
   CloseIcon,
   AddIcon,
 } from "@chakra-ui/icons";
+import React, { useState } from "react";
 import Photo from "./Photo";
 import Name from "./Name";
 import "./Navbar.css";
-import React from 'react';
-// import { useDisclosure } from "@chakra-ui/react";
+
 import ReactDOM from 'react-dom';
 import LoginComponent from '../Pages/LoginComponent.js'; // Adjust the path accordingly based on your project structure
- export default function Navbar() {
-   const { colorMode, toggleColorMode } = useColorMode();
-   const { isOpen, onOpen, onClose } = useDisclosure();
-;
-   const [showLogin, setShowLogin] = React.useState(false);
 
-//    const onButtonClick = () => {
-    
-//     ReactDOM.render(<LoginComponent />, document.getElementById("app")); // Assuming you have a div with id "app"
-// };
-const onButtonClick = () => {
-  // Logic to handle button click
-  setShowLogin(true);
-  ReactDOM.render(<LoginComponent />, document.getElementById("app"));
-};
 
+
+export default function Navbar({ mode, setMode }) {
+  // const { colorMode, toggleColorMode } = useColorMode();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  // const [showLogin, setShowLogin] = useState(false);
+  const { colorMode, toggleColorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [showLogin, setShowLogin] = useState(false); // Managing the visibility of LoginComponent
+  const [showRegistration, setShowRegistration] = useState(true);  // Managing the visibility of LoginComponent
+
+  const onLoginButtonClick = () => {
+    setShowLogin(true);
+  };
+ 
+  const onCloseLogin = () => {
+    setShowLogin(false);
+  };
+  const toggleMode = () => {
+    if (mode === 'login') {
+      setMode('signup');
+    } else {
+      setMode('login');
+    }
+  };
+
+  const onRegistrationButtonClick = () => {
+    // toggleMode();
+    setShowRegistration(true);
+    toggleMode(); // Change the mode to 'signup'
+  };
+
+  const onCloseRegistration = () => {
+    setShowRegistration(false);
+  };
 
 
   return (
@@ -96,32 +116,28 @@ const onButtonClick = () => {
                     <b>Contact</b>
                   </a>
                 </Button>
-                <Button className="btnRes">
+                {/* <Button className="btnRes">
                   <a href="#Contact">
                     <b>Contact Us</b>
                   </a>
-                </Button>
-                <Button
-                className="btnRes"
-                backgroundColor="#a891b7"
-                _hover={{ bg: "#a891b7", color: "black" }}
-                color="white"
-                variant="solid"
-                onClick={onButtonClick}
-             
-              >
-               
-                
-                  <b>Login</b>
-                  {/* </a> */}
-              </Button>
+                </Button> */}
+                {/* <Button
+        className="btnRes"
+        backgroundColor="#a891b7"
+        _hover={{ bg: "#a891b7", color: "black" }}
+        color="white"
+        variant="solid"
+        onClick={onLoginButtonClick} // Add the click handler
+      >
+        <b>Login</b>
+      </Button>
               <Button
               className="btnRes"
                 backgroundColor="#a891b7"
                 _hover={{ bg: "#a891b7", color: "black" }}
                 color="white"
                 variant="solid"
-                onClick={onButtonClick}
+                onClick={onLoginButtonClick}
                 size={["sm", "md"]}
                 
                 id="resumeBtn"
@@ -134,7 +150,45 @@ const onButtonClick = () => {
                   Registration
                 </a>
               
-              </Button>
+              </Button> */}
+
+<Button
+        className="btnRes"
+        backgroundColor="#a891b7"
+        _hover={{ bg: "#a891b7", color: "black" }}
+        color="white"
+        variant="solid"
+        onClick={onLoginButtonClick} // Add the click handler
+      >
+        <b>Login</b>
+      </Button>
+      
+      {showLogin && (
+        <div className="login-popup">
+          <button className="close-button" onClick={onCloseLogin}></button>
+          {/* <LoginComponent /> */}
+        </div>
+      )}
+      <Button
+        className="btnRes"
+        backgroundColor="#a891b7"
+        _hover={{ bg: "#a891b7", color: "black" }}
+        color="white"
+        variant="solid"
+        onClick={onRegistrationButtonClick} // Add the click handler
+      >
+        <b>Registration</b>
+      </Button>
+      {showRegistration && (
+        <div className="registration-popup">
+          <button className="close-button" onClick={onCloseRegistration}></button>
+          {/* <LoginComponent /> */}
+      {/* {showRegistration && (
+        <div className="registration-popup">
+          <button className="close-button" onClick={onCloseRegistration}></button>
+          Render the registration form component here */}
+        </div>
+      )}
               </HStack>
             </HStack>
           </Flex>
@@ -268,6 +322,12 @@ const onButtonClick = () => {
           ) : null}
         </Flex>
       </Box>
+      {showLogin && (
+        <div>
+          <LoginComponent />
+          <Button onClick={onCloseLogin}>Close</Button>
+        </div>
+      )}{" "}{/* Display LoginComponent conditionally */}
     </div>
   );
 }

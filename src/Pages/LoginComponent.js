@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './styles.scss';
 
-// Rest of your code
 
-const mode = 'login';
+
+const mode = 'signup';
 
 class LoginComponent extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class LoginComponent extends React.Component {
         }
     }
     toggleMode() {
-        var newMode = this.state.mode === 'login' ? 'signup' : 'login';
+        var newMode = this.state.mode === 'signup' ? 'login' : 'signup';
         this.setState({ mode: newMode});
     }
     render() {
@@ -31,6 +32,7 @@ class LoginComponent extends React.Component {
                     </header>
                     <LoginForm mode={this.state.mode} onSubmit={this.props.onSubmit} />
                 </section>
+
             </div>
         )
     }
