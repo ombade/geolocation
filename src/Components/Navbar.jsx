@@ -55,8 +55,9 @@ export default function Navbar({ mode, setMode }) {
 
   const onRegistrationButtonClick = () => {
     // toggleMode();
-    setShowRegistration(true);
-    toggleMode(); // Change the mode to 'signup'
+    setShowLogin(true);
+    // setShowRegistration(true);
+    // toggleMode(); // Change the mode to 'signup'
   };
 
   const onCloseRegistration = () => {
@@ -281,30 +282,30 @@ export default function Navbar({ mode, setMode }) {
                   </a>
                 </Button>
 
+                
                 <Button
-                  onClick={isOpen ? onClose : onOpen}
-                  _hover={{
-                    textShadow: "#FC0 1px 0 10px",
-                    transform: "scale(1.2)",
-                  }}
-                >
-                  <a href="#Skills">
-                    {" "}
-                    <b>login</b>
-                  </a>
-                </Button>
+                onClick={onLoginButtonClick}
+                _hover={{
+                  textShadow: "#FC0 1px 0 10px",
+                  transform: "scale(1.2)",
+                }}
+              >
+                <a href="#Projects">
+                  <b>login</b>
+                </a>
+              </Button>
 
                 <Button
-                  onClick={isOpen ? onClose : onOpen}
-                  _hover={{
-                    textShadow: "#FC0 1px 0 10px",
-                    transform: "scale(1.2)",
-                  }}
-                >
-                  <a href="#Projects">
-                    <b>Registion</b>
-                  </a>
-                </Button>
+  onClick={onLoginButtonClick}
+  _hover={{
+    textShadow: "#FC0 1px 0 10px",
+    transform: "scale(1.2)",
+  }}
+>
+  <a href="#Projects">
+    <b>Registration</b>
+  </a>
+</Button>
 
                 <Button
                   onClick={isOpen ? onClose : onOpen}
