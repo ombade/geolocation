@@ -107,17 +107,17 @@ const ContactUs = () => {
   };
 
   const cardStyle = {
-    maxWidth: '500px',
+    maxWidth: '10000px',
     margin: 'auto',
     marginTop: '50px',
     padding: '40px',
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-    backgroundColor: 'white',
+    backgroundColor: '	rgb(72,72,72)',
     borderRadius: '10px',
   };
 
   const backgroundStyle = {
-    backgroundImage: `url('https://via.placeholder.com/1500')`,
+    backgroundImage: `url('https://media.istockphoto.com/id/1416335096/photo/businessman-hand-holding-smart-phone-with-icon-mobile-phone-mail-telephone-and-address.webp?b=1&s=170667a&w=0&k=20&c=O39_wq7HB2oZHV3pyeZDxFAq0Xb_zNvLKrAIEWDVveY=')`,
     height: '100vh',
     backgroundSize: 'cover',
     backgroundPosition: 'center',

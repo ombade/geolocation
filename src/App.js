@@ -15,9 +15,10 @@ function App() {
       <Navbar />
       <Home/>
       {/* <LoginComponent /> */}
+      <Projects/>
       <About />
       <Skills />
-      <Projects/>
+      
       <Contact/>
     </div>
   );

@@ -30,9 +30,7 @@ import LoginComponent from '../Pages/LoginComponent.js'; // Adjust the path acco
 
 
 export default function Navbar({ mode, setMode }) {
-  // const { colorMode, toggleColorMode } = useColorMode();
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [showLogin, setShowLogin] = useState(false);
+
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [showLogin, setShowLogin] = useState(false); // Managing the visibility of LoginComponent

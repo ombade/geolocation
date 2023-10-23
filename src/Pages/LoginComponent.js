@@ -6,6 +6,7 @@ import './styles.scss';
 
 const mode = 'signup';
 
+
 class LoginComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -25,7 +26,7 @@ class LoginComponent extends React.Component {
                     <header className="form-block__header">
                         <h1>{this.state.mode === 'login' ? 'Welcome back!' : 'Sign up'}</h1>
                         <div className="form-block__toggle-block">
-                            <span>{this.state.mode === 'login' ? 'Don\'t' : 'Already'} have an account? Click here &#8594;</span>
+                            <span>{this.state.mode === 'login' ? 'Don\'t' : 'Already'} have an account? Click here &nbsp; &nbsp;&nbsp; &#8594;</span>
                             <input id="form-toggler" type="checkbox" onClick={this.toggleMode.bind(this)} />
                             <label htmlFor="form-toggler"></label>
                         </div>
@@ -42,9 +43,41 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props);
     }
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const { mode } = this.props;
+        const form = event.target;
+        const formData = new FormData(form);
+        const url = mode === 'login' ? 'https://salmon-painter-hkkrg.pwskills.app:5000/login' : 'https://salmon-painter-hkkrg.pwskills.app:5000/signup';
+
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message);
+            }
+
+            // Redirect to dash.js after successful login or registration
+            window.location.href = '/dash.js';
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+    };
     render() {
         return (
-        <form onSubmit={this.props.onSubmit}>
+        <form onSubmit={this.handleSubmit}>
             <div className="form-block__input-wrapper">
                 <div className="form-group form-group--login">
                     <Input type="text" id="username" label="user name" disabled={this.props.mode === 'signup'}/>
