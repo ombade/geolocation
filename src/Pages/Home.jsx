@@ -14,7 +14,7 @@ options={{
 }}
 onInit={(typewriter) => {
   typewriter
-    .typeString("GEOLOCTION")
+    .typeString("GEOLOCATION")
     .pauseFor(1000)
     .deleteAll()
     .typeString("Smart Alerts, Any Location")

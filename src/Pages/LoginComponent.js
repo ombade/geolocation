@@ -80,7 +80,7 @@ class LoginForm extends React.Component {
         <form onSubmit={this.handleSubmit}>
             <div className="form-block__input-wrapper">
                 <div className="form-group form-group--login">
-                    <Input type="text" id="username" label="user name" disabled={this.props.mode === 'signup'}/>
+                    <Input type="text" id="username" label="email" disabled={this.props.mode === 'signup'}/>
                     <Input type="password" id="password" label="password" disabled={this.props.mode === 'signup'}/>
                 </div>
                 <div className="form-group form-group--signup">
