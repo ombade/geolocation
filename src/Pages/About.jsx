@@ -15,6 +15,7 @@
 
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { color } from '@chakra-ui/react';
 
 // const About = () => {
 //   const [backgroundColor, setBackgroundColor] = useState('#f8f9fa'); // Initial background color
@@ -73,6 +74,7 @@ const About = () => {
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
     borderRadius: '10px',
     display: 'flex',
+   
     alignItems: 'center',
   };
   const cardStyle1 = {
@@ -80,8 +82,10 @@ const About = () => {
   padding: '20px',
   boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
   borderRadius: '10px',
+  visibility :"50px",
+ 
   display: 'flex',
-  
+ 
   alignItems: 'center',
 };
   const buttonStyle = {

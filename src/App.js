@@ -6,7 +6,7 @@ import Contact from './Pages/Contact';
 import Home from './Pages/Home';
 import Skills from './Pages/Skiils';
 import Projects from './Pages/feat';
-// import Dash from './Pages/dash'
+// import Map from './map';
 
 function App() {
   return (
@@ -17,12 +17,13 @@ function App() {
      
       <Projects/>
       <About />
-      <Skills />
+      
       
       <Contact/>
       {/* <Link to="/dash"> */}
         <button>Go to Dash</button>
-        {/* </Link> */}
+        <Skills />
+        <map/>
     </div>
   );
 }

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 const MapComponent = () => {
   const [map, setMap] = useState(null);
+  const [entry, setEntry] = useState({});
+   const [mapg, setMapg] = useState(null);
   const [marker, setMarker] = useState(null);
   const [capturedCoordinates, setCapturedCoordinates] = useState(null);
 
@@ -80,30 +82,63 @@ const MapComponent = () => {
     initializeMap();
   }, []);
 
-  const handleGetLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showLoc, errHand);
-    }
+   const submitData = () => {
+    const xhr = new XMLHttpRequest();
+    entry.message = document.getElementById("messageInput").value;
+    entry.radius = document.getElementById("range").value;
+    const url = 'https://salmon-painter-hkkrg.pwskills.app:5000/alertdata';
+    console.log(entry);
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(entry));
   };
 
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const latt = position.coords.latitude;
+        const long = position.coords.longitude;
+        const lattlong = new window.google.maps.LatLng(latt, long);
+        const message = document.getElementById('messageInput').value;
+        updateCoordinates(latt, long, message);
+        mapg.setCenter(lattlong);
+        marker.setPosition(lattlong);
+      }, () => {
+        handleLocationError(true, window.infoWindow, mapg.getCenter());
+      });
+    } else {
+      handleLocationError(false, window.infoWindow, mapg.getCenter());
+    }
+  };
+    const handleLocationError = (browserHasGeolocation, infoWindow, pos) => {
+    console.log(browserHasGeolocation
+      ? 'Error: The Geolocation service failed.'
+      : 'Error: Your browser doesn\'t support geolocation.');
+  };
+
+    const updateTextInput = (val) => {
+    document.getElementById('vol-value').textContent = val;
+  };
   return (
     <div>
-      <div className="h1">Choose Location</div>
-      <h1>Hello</h1>
-      <p>Display and Capture Location on Map</p>
-
-      <button className="main" type="button" onClick={handleGetLocation}>
-        Current Position
-      </button>
-      <div id="demo2" style={{ width: '500px', height: '500px' }}></div>
-      <p>Click on the map to capture coordinates:</p>
-      <div id="capturedCoordinates">
-        {capturedCoordinates && (
-          <div>
-            Clicked Coordinates: Latitude {capturedCoordinates.latitude}, Longitude{' '}
-            {capturedCoordinates.longitude}
-          </div>
-        )}
+      <h1 className="h1">Choose Location</h1>
+      <div className="container">
+        <div id="map-container">
+          <div id="demo2" style={{ width: "700px", height: "500px" }}></div>
+          <p>Click on the map to capture coordinates</p>
+        </div>
+        <div id="message-container" >
+          <h1>Hello</h1>
+          <p>Enter your message:</p>
+          <input type="text" id="messageInput" className="form-control" placeholder="Enter your message" />
+          <br />
+          <p>Enter The range in km :</p>
+          <input type="number" id="range" className="form-control" placeholder="range" min="0.5" max="5" onInput={(e) => updateTextInput(e.target.value)} />
+          <p>Value: <span id="vol-value">0</span></p>
+          <br />
+          <button className="btn btn-success" onClick={submitData}>Submit</button>
+          <button className="btn btn-primary" onClick={getLocation}>Current Location</button>
+        </div>
       </div>
     </div>
   );

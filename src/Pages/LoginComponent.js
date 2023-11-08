@@ -1,7 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles.scss';
+// import Dash from 'src/Pages/Dash.js';
+// import Dash from './Dash.js';
 
+import './styles.scss';
+import {
+    createBrowserRouter,
+    RouterProvider,
+  } from "react-router-dom";
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <div>Hello world!</div>,
+    },
+
+  ]);
 
 
 const mode = 'signup';
@@ -51,9 +64,27 @@ class LoginForm extends React.Component {
         const url = mode === 'login' ? 'https://salmon-painter-hkkrg.pwskills.app:5000/login' : 'https://salmon-painter-hkkrg.pwskills.app:5000/signup';
 
         const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        });
+       if(mode === "login")
+       {
+        var email = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        data.email =email;
+        data.password = password;
+       }
+       else 
+       {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("repeatpassword").value;
+        data.email =email;
+        data.password = password;
+       }
+
+
+
+
+
+
+    
 
         try {
             const response = await fetch(url, {
@@ -70,7 +101,8 @@ class LoginForm extends React.Component {
             }
 
             // Redirect to dash.js after successful login or registration
-            window.location.href = '/dash.js';
+           //  window.location.href = Dash;
+            
         } catch (error) {
             console.error('Error:', error.message);
         }

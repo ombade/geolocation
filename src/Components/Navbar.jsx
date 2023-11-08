@@ -17,15 +17,11 @@ import {
   SunIcon,
   HamburgerIcon,
   CloseIcon,
-  AddIcon,
 } from "@chakra-ui/icons";
 import React, { useState } from "react";
-import Photo from "./Photo";
 import Name from "./Name";
 import "./Navbar.css";
-
-import ReactDOM from 'react-dom';
-import LoginComponent from '../Pages/LoginComponent.js'; // Adjust the path accordingly based on your project structure
+import LoginComponent from '../Pages/LoginComponent.js'; 
 
 
 
@@ -33,8 +29,8 @@ export default function Navbar({ mode, setMode }) {
 
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [showLogin, setShowLogin] = useState(false); // Managing the visibility of LoginComponent
-  const [showRegistration, setShowRegistration] = useState(true);  // Managing the visibility of LoginComponent
+  const [showLogin, setShowLogin] = useState(false); 
+  const [showRegistration, setShowRegistration] = useState(true);  
 
   const onLoginButtonClick = () => {
     setShowLogin(true);
@@ -59,7 +55,8 @@ export default function Navbar({ mode, setMode }) {
   };
 
   const onCloseRegistration = () => {
-    setShowRegistration(false);
+    // setShowRegistration(false);
+  
   };
 
 
@@ -81,13 +78,6 @@ export default function Navbar({ mode, setMode }) {
           </HStack>
 
           <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-            {/* <IconButton
-              size={"md"}
-              icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-              aria-label={"Open Menu"}
-              display={{ md: "none" }}
-              onClick={isOpen ? onClose : onOpen}
-            /> */}
             <HStack spacing={8} alignItems={"center"}>
               <HStack
                 as={"nav"}
@@ -157,7 +147,7 @@ export default function Navbar({ mode, setMode }) {
         _hover={{ bg: "#a891b7", color: "black" }}
         color="white"
         variant="solid"
-        onClick={onLoginButtonClick} // Add the click handler
+        onClick={onLoginButtonClick} 
       >
         <b>Login</b>
       </Button>
@@ -165,7 +155,7 @@ export default function Navbar({ mode, setMode }) {
       {showLogin && (
         <div className="login-popup">
           <button className="close-button" onClick={onCloseLogin}></button>
-          {/* <LoginComponent /> */}
+          
         </div>
       )}
       <Button
@@ -176,16 +166,12 @@ export default function Navbar({ mode, setMode }) {
         variant="solid"
         onClick={onRegistrationButtonClick} // Add the click handler
       >
-        <b>Registration</b>
+        <b>dashboard</b>
       </Button>
       {showRegistration && (
         <div className="registration-popup">
           <button className="close-button" onClick={onCloseRegistration}></button>
-          {/* <LoginComponent /> */}
-      {/* {showRegistration && (
-        <div className="registration-popup">
-          <button className="close-button" onClick={onCloseRegistration}></button>
-          Render the registration form component here */}
+   
         </div>
       )}
               </HStack>
