@@ -94,7 +94,12 @@
 .typewriter-text {
   font-size: 2rem;
   font-weight: bold;
-  color: #a01e1e; /* Adjust the color as needed */
+  font-family: Rubik,sans-serif;
+  scroll-behavior:smooth;
+  /* -webkit-background-clip:text; */
+  /* -webkit-text-fill-color :whitesmoke; */
+  color :linear-gradient(90deg,#6c41d5,#b85aa6 99.48%)
+   /* Adjust the color as needed */
 }
 
 .gif-container {

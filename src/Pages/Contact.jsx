@@ -84,6 +84,10 @@
 
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const notify = () => toast("Wow so easy!");
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -98,36 +102,98 @@ const ContactUs = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // You can add your submission logic here
+  //   console.log(formData);
+  //   // Reset the form
+  //   setFormData({ name: '', email: '', message: '' });
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can add your submission logic here
-    console.log(formData);
-    // Reset the form
-    setFormData({ name: '', email: '', message: '' });
+  
+    // Assuming formData is an object containing the form data
+    // const formData = { name: 'John', email: 'john@example.com', message: 'Hello!' };
+
+    try {
+      const response = await fetch('https://salmon-painter-hkkrg.pwskills.app:5000/submit_form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        toast.success("Message Send Successfull, will contact you Soon", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+        console.log('Form data successfully submitted to the backend.');
+        // Reset the form
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        console.error('Failed to submit form data to the backend.');
+        toast.error('Failed to submit form data to the backend.', {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      }
+    } catch (error) {
+      console.error('An error occurred while submitting form data:', error);
+      toast.error('An error occurred while submitting form data:', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+    }
   };
+  
+
 
   const cardStyle = {
     maxWidth: '10000px',
     margin: 'auto',
+    height: '500px',
+    width :'600px',
     marginTop: '50px',
     padding: '40px',
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-    backgroundColor: '	rgb(72,72,72)',
+    backgroundColor: 'gray',
     borderRadius: '10px',
   };
 
   const backgroundStyle = {
-    backgroundImage: `url('https://media.istockphoto.com/id/1416335096/photo/businessman-hand-holding-smart-phone-with-icon-mobile-phone-mail-telephone-and-address.webp?b=1&s=170667a&w=0&k=20&c=O39_wq7HB2oZHV3pyeZDxFAq0Xb_zNvLKrAIEWDVveY=')`,
+   
     height: '100vh',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     display: 'flex',
+    backgroundColor:"#1a202c",
     justifyContent: 'center',
     alignItems: 'center',
   };
 
   return (
-    <div style={backgroundStyle}>
+    <div id='Contact' style={backgroundStyle}>
       <div style={cardStyle}>
         <h2 style={{ marginBottom: '30px', textAlign: 'center' }}>Contact Us</h2>
         <form onSubmit={handleSubmit}>
@@ -168,6 +234,7 @@ const ContactUs = () => {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

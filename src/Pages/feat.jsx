@@ -3,7 +3,7 @@ import '../App.css';
 
 const AboutProject = () => {
     return (
-        <div className="about-container">
+        <div id="About" className="about-container">
             <h2>About the Project</h2>
             <p className="about-content">
                 Our geolocation application is designed to provide a seamless and intuitive way to manage location-based reminders and alerts. With a focus on user-friendly features, our app simplifies the process of setting and receiving location-specific notifications. Some key features include:

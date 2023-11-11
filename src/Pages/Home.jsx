@@ -1,10 +1,10 @@
 import React from 'react';
 import Typewriter from "typewriter-effect";
-import '../App.css'; // You can create this CSS file for styling
+import '../App.css';
 
 const HomePage = () => {
     return (
-        <div className="home-container">
+        <div className="home-container" id ="Home">
             <div className="typewriter-container">
                 <h1 className="typewriter-text">                 			<Typewriter
 
@@ -29,9 +29,9 @@ onInit={(typewriter) => {
 </h1>
 
             </div>
-            <div className="gif-container">
+            {/* <div className="gif-container">
                 <img className="responsive-gif" src="https://media4.giphy.com/media/JVvNVItg3I51n08Th2/200.gif?cid=6c09b952qm55q7z5ruzaxx0ma0mwqi9wuk2ag5yf7comnwzw&ep=v1_internal_gif_by_id&rid=200.gif&ct=g" alt="GIF" />
-            </div>
+            </div> */}
         </div>
     );
 };
@@ -39,28 +39,3 @@ onInit={(typewriter) => {
 export default HomePage;
 
 
-// import React from 'react';
-
-// //importing typewriter-effect
-// import Typewriter from "typewriter-effect";
-// import './App.css';
-
-// function App() {
-// 	return (
-// 		<div className="App">
-// 			<Typewriter
-
-// 				onInit={(typewriter) => {
-// 					typewriter
-// 						.typeString("GeeksForGeeks")
-// 						.pauseFor(1000)
-// 						.deleteAll()
-// 						.typeString("Welcomes You")
-// 						.start();
-// 				}}
-// 			/>
-// 		</div>
-// 	);
-// }
-
-// export default App;

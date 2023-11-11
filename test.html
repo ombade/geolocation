@@ -1,0 +1,58 @@
+from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
+from models.model import db, User, Message
+
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'cairocoders-ednalan'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flaskdb.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = True
+
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
+    
+@app.route("/signup", methods=["POST"])
+def signup():
+    email = request.json["email"]
+    password = request.json["password"]
+
+    # Check if the email already exists in the database
+    if User.query.filter_by(email=email).first():
+        return jsonify({"error": "Email already exists"}), 409
+
+    # Create a new user with plain text password
+    new_user = User(email=email, password=password)
+
+    # Add the new user to the database
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({
+        "id": new_user.id,
+        "email": new_user.email
+    })
+
+@app.route("/login", methods=["POST"])
+def login_user():
+    email = request.json["email"]
+    password = request.json["password"]
+
+    # Query the database to find the user by email
+    user = User.query.filter_by(email=email).first()
+
+    # Check if the user exists and the password matches
+    if user and user.password == password:
+        return jsonify({
+            "id": user.id,
+            "email": user.email
+        })
+    else:
+        return jsonify({"error": "Unauthorized Access"}), 401
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)

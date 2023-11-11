@@ -77,12 +77,14 @@ const About = () => {
    
     alignItems: 'center',
   };
+  
   const cardStyle1 = {
     margin: '10px',
+    
   padding: '20px',
   boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
   borderRadius: '10px',
-  visibility :"50px",
+ backgroundcolor: 'rgb(255, 204, 204)',
  
   display: 'flex',
  

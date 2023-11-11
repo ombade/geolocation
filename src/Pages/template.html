@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Display and Capture Location on Map</title>
+    <style>
+        .h1 {
+            font-size: 40px;
+            font-weight: bold;
+            color: #009900;
+            margin-left: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            margin-top: 20px;
+        }
+
+        #map-container {
+            flex: 1;
+            height: 500px;
+        }
+
+        #message-container {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        #messageInput {
+            width: 100%;
+            padding: 10px;
+        }
+    </style>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="h1">Choose Location</div>
+    <div class="container">
+        <div id="map-container">
+            <div id="demo2" style="width: 100%; height: 100%"></div>
+            <p>Click on the map to capture coordinates</p>
+        </div>
+        <div id="message-container">
+            <h1>Hello</h1>
+            <p>Enter your message:</p>
+            <input type="text" id="messageInput" class="form-control" placeholder="Enter your message">
+            <br>
+            <p>Enter The range in km :</p>
+            <input type="number" id="range" class="form-control" placeholder="range" min="0.5" max="5" oninput="updateTextInput(this.value)">
+            <p>Value: <span id="vol-value">0</span></p>
+            <br>
+            <button class="btn btn-success" onclick="submitData()">Submit</button>
+            <button class="btn btn-primary" onclick="getlocation()">Current Location</button>
+        </div>
+    </div>
+
+    <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+        var mapg;
+        var marker;
+        var entry = {};
+        var locationObj ={};
+
+        function initializeMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    var options = {
+                        center: initialLocation,
+                        zoom: 10,
+                        mapTypeControl: true,
+                        navigationControlOptions: {
+                            style: google.maps.NavigationControlStyle.SMALL,
+                        },
+                    };
+                    mapg = new google.maps.Map(document.getElementById("demo2"), options);
+                    marker = new google.maps.Marker({
+                        position: initialLocation,
+                        map: mapg,
+                        title: "Location",
+                        draggable: true, // Allow marker to be dragged
+                    });
+
+                    // Add a click event listener to the map to capture coordinates on click
+                    google.maps.event.addListener(mapg, "click", function (event) {
+                        var clickedLocation = event.latLng;
+                        // var message = document.getElementById('messageInput').value;
+                        updateCoordinates(clickedLocation.lat(), clickedLocation.lng());
+                    });
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+
+        function updateCoordinates(lat, lng) {
+            marker.setPosition(new google.maps.LatLng(lat, lng));
+            entry = {
+                "latitude": lat,
+                "longitude": lng
+                // "message": message
+            };
+            console.log(entry);
+        }
+
+        function submitData() {
+            var xhr = new XMLHttpRequest();
+            
+            entry.message=document.getElementById("messageInput").value;
+            entry.radius =document.getElementById("range").value;
+            alert("Alert for Message " +entry.message+" Set successfully");
+            var url = 'https://salmon-painter-hkkrg.pwskills.app:5000/alertdata';
+            console.log(entry);
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(entry));
+        }
+
+        function getlocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var latt = position.coords.latitude;
+                    var long = position.coords.longitude;
+                    var lattlong = new google.maps.LatLng(latt, long);
+                    var message = document.getElementById('messageInput').value;
+                    updateCoordinates(latt, long, message);
+                    mapg.setCenter(lattlong);
+                    marker.setPosition(lattlong);
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            console.log(browserHasGeolocation
+                ? 'Error: The Geolocation service failed.'
+                : 'Error: Your browser doesn\'t support geolocation.');
+        }
+        function getlocation() {
+            navigator.geolocation.getCurrentPosition(showLoc);
+        }
+		function showLoc(pos) {
+			locationObj.latitude = pos.coords.latitude;
+			locationObj.longitude = pos.coords.longitude;
+			console.log(locationObj);
+		}
+        // Initialize the map when the page loads
+        initializeMap();
+
+        // Send data every 15 seconds
+        setInterval(function () {
+            getlocation();
+            
+                console.log(locationObj);
+            var xhr = new XMLHttpRequest();
+            var url = 'https://salmon-painter-hkkrg.pwskills.app:5000/currdata';
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(locationObj));
+        }, 15000);
+        function updateTextInput(val) {
+  document.getElementById('vol-value').textContent = val;
+}
+    </script>
+</body>
+
+</html>

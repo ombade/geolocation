@@ -1,11 +1,6 @@
-import {
-  Box,
-  Flex,
-  Button,
-  useColorModeValue,
+import {Box,Flex,Button,useColorModeValue,
   Stack,
-  useColorMode,
-  Show,
+  useColorMode,  Show,
   HStack,
   Text,
   useDisclosure,
@@ -21,19 +16,36 @@ import {
 import React, { useState } from "react";
 import Name from "./Name";
 import "./Navbar.css";
+import { useAuth } from '../Pages/AuthContext.js';
 import LoginComponent from '../Pages/LoginComponent.js'; 
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Navbar({ mode, setMode }) {
-
+ const { auth, logout } = useAuth();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [showLogin, setShowLogin] = useState(false); 
   const [showRegistration, setShowRegistration] = useState(true);  
 
   const onLoginButtonClick = () => {
-    setShowLogin(true);
+    if (auth) {
+      logout();
+      toast.success("Logged out successfully", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      // If not authenticated, show login component
+      setShowLogin(true);
+    }
   };
  
   const onCloseLogin = () => {
@@ -47,11 +59,32 @@ export default function Navbar({ mode, setMode }) {
     }
   };
 
-  const onRegistrationButtonClick = () => {
-    // toggleMode();
-    setShowLogin(true);
-    // setShowRegistration(true);
-    // toggleMode(); // Change the mode to 'signup'
+  const   onRegistrationButtonClick = () => {
+    // window.location.href = 'https://salmon-painter-hkkrg.pwskills.app:5000/';
+    if (auth) {
+      window.location.href = 'https://salmon-painter-hkkrg.pwskills.app:5000/';
+    } else {
+      toast.error("unauthenticated access Not allowed", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+      toast.warn("Login first and then access dashboard", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+    }
   };
 
   const onCloseRegistration = () => {
@@ -149,7 +182,7 @@ export default function Navbar({ mode, setMode }) {
         variant="solid"
         onClick={onLoginButtonClick} 
       >
-        <b>Login</b>
+        <b>{auth ? 'Logout' : 'Login'}</b>
       </Button>
       
       {showLogin && (
@@ -313,6 +346,7 @@ export default function Navbar({ mode, setMode }) {
           <Button onClick={onCloseLogin}>Close</Button>
         </div>
       )}{" "}{/* Display LoginComponent conditionally */}
+        <ToastContainer />
     </div>
   );
 }

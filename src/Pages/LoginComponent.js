@@ -1,148 +1,280 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-// import Dash from 'src/Pages/Dash.js';
-// import Dash from './Dash.js';
+// import React, { useState } from 'react';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import './styles.scss';
 
+// const notify = () => toast("Wow so easy!");
+
+// const LoginComponent = () => {
+//   const [mode, setMode] = useState('signup');
+//   const [formData, setFormData] = useState({
+//     email: '',
+//     password: '',
+//     fullname: '',
+//     repeatpassword: '',
+//   });
+
+//   const toggleMode = () => {
+//     setMode((prevMode) => (prevMode === 'signup' ? 'login' : 'signup'));
+//   };
+
+//   const handleChange = (event) => {
+//     const { id, value } = event.target;
+//     setFormData((prevData) => ({ ...prevData, [id]: value }));
+//   };
+
+//   const handleSubmit = async (event) => {
+//     event.preventDefault();
+//     const url =
+//       mode === 'login'
+//         ? 'https://salmon-painter-hkkrg.pwskills.app:5000/login'
+//         : 'https://salmon-painter-hkkrg.pwskills.app:5000/signup';
+
+//     try {
+//       console.log(formData); // Log the formData object
+//       const response = await fetch(url, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(formData),
+//       });
+
+//       if (!response.ok) {
+//         const error = await response.json();
+//         throw new Error(`Server error: ${error.message}`);
+//       }
+      
+//       window.location.href = 'https://salmon-painter-hkkrg.pwskills.app:5000/';
+//     } catch (error) {
+//       console.error('Error:', error.message);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <div className={`form-block-wrapper form-block-wrapper--is-${mode}`}></div>
+//       <section className={`form-block form-block--is-${mode}`}>
+//         <header className="form-block__header">
+//           <h1>{mode === 'login' ? 'Welcome back!' : 'Sign up'}</h1>
+//           <div className="form-block__toggle-block">
+//             <span>
+//               {mode === 'login' ? "Don't" : 'Already'} have an account? Click here &nbsp; &nbsp;&nbsp; &#8594;
+//             </span>
+//             <input id="form-toggler" type="checkbox" onClick={toggleMode} />
+//             <label htmlFor="form-toggler"></label>
+//           </div>
+//         </header>
+//         <LoginForm mode={mode} formData={formData} onChange={handleChange} onSubmit={handleSubmit} />
+//       </section>
+      
+//     </div>
+//   );
+// };
+
+// const LoginForm = ({ mode, formData, onChange, onSubmit }) => {
+//   return (
+//     <form onSubmit={onSubmit}>
+//       <div className="form-block__input-wrapper">
+//         <div className={`form-group form-group--${mode}`}>
+//           {mode === 'login' ? (
+//             <>
+//               <Input id="email" type="text" label="email" value={formData.email} onChange={onChange} disabled={mode === 'signup'} />
+//               <Input
+//                 id="password"
+//                 type="password"
+//                 label="password1"
+//                 value={formData.password}
+//                 onChange={onChange}
+//                 disabled={mode === 'signup'}
+//               />
+//             </>
+//           ) : (
+//             <>
+//               <Input id="fullname" type="text" label="full name" value={formData.fullname} onChange={onChange} disabled={mode === 'login'} />
+//               <Input id="email" type="email" label="email" value={formData.email} onChange={onChange} disabled={mode === 'login'} />
+//               <Input
+//                 id="createpassword"
+//                 type="password"
+//                 label="password"
+//                 value={formData.createpassword}
+//                 onChange={onChange}
+//                 disabled={mode === 'login'}
+//               />
+//               <Input
+//                 id="repeatpassword"
+//                 type="password"
+//                 label="repeat password"
+//                 value={formData.repeatpassword}
+//                 onChange={onChange}
+//                 disabled={mode === 'login'}
+//               />
+//             </>
+//           )}
+//         </div>
+//       </div>
+//       <button className="button button--primary full-width" type="submit">
+//         {mode === 'login' ? 'Log In' : 'Sign Up'}
+//       </button>
+//       <ToastContainer />
+//     </form>
+//   );
+// };
+
+// const Input = ({ id, type, label, value, onChange, disabled }) => (
+//   <input className="form-group__input" type={type} id={id} placeholder={label} value={value} onChange={onChange} disabled={disabled} />
+// );
+
+// export default LoginComponent;
+import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './styles.scss';
-import {
-    createBrowserRouter,
-    RouterProvider,
-  } from "react-router-dom";
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <div>Hello world!</div>,
-    },
+import { useAuth } from './AuthContext';
 
-  ]);
+const notify = (t) => toast(t);
 
+const LoginComponent = () => {
+  const [mode, setMode] = useState('signup');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    fullname: '',
+    repeatpassword: '',
+  });
+  const { auth, login } = useAuth();
+  const toggleMode = () => {
+    setMode((prevMode) => (prevMode === 'signup' ? 'login' : 'signup'));
+  };
 
-const mode = 'signup';
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
+  };
 
+  const handleSubmit = async (event) => {
 
-class LoginComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            mode: this.props.mode
-        }
-    }
-    toggleMode() {
-        var newMode = this.state.mode === 'signup' ? 'login' : 'signup';
-        this.setState({ mode: newMode});
-    }
-    render() {
-        return (
-            <div>
-                <div className={`form-block-wrapper form-block-wrapper--is-${this.state.mode}`} ></div>
-                <section className={`form-block form-block--is-${this.state.mode}`}>
-                    <header className="form-block__header">
-                        <h1>{this.state.mode === 'login' ? 'Welcome back!' : 'Sign up'}</h1>
-                        <div className="form-block__toggle-block">
-                            <span>{this.state.mode === 'login' ? 'Don\'t' : 'Already'} have an account? Click here &nbsp; &nbsp;&nbsp; &#8594;</span>
-                            <input id="form-toggler" type="checkbox" onClick={this.toggleMode.bind(this)} />
-                            <label htmlFor="form-toggler"></label>
-                        </div>
-                    </header>
-                    <LoginForm mode={this.state.mode} onSubmit={this.props.onSubmit} />
-                </section>
+    event.preventDefault();
+    const url =
+      mode === 'login'
+        ? 'https://salmon-painter-hkkrg.pwskills.app:5000/login'
+        : 'https://salmon-painter-hkkrg.pwskills.app:5000/signup';
 
-            </div>
-        )
-    }
-}
+    try {
+      console.log(formData); // Log the formData object
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-class LoginForm extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    handleSubmit = async (event) => {
-        event.preventDefault();
-        const { mode } = this.props;
-        const form = event.target;
-        const formData = new FormData(form);
-        const url = mode === 'login' ? 'https://salmon-painter-hkkrg.pwskills.app:5000/login' : 'https://salmon-painter-hkkrg.pwskills.app:5000/signup';
+      if (!response.ok) {
+        const error = await response.json();
 
-        const data = {};
-       if(mode === "login")
-       {
-        var email = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
-        data.email =email;
-        data.password = password;
-       }
-       else 
-       {
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("repeatpassword").value;
-        data.email =email;
-        data.password = password;
-       }
+        throw new Error(`Server error: ${error.message}`);
+      }
 
-
-
-
-
-
-    
-
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
+      login();
+      toast.error("login Successfull", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+      // window.location.href = 'https://salmon-painter-hkkrg.pwskills.app:5000/';
+    } catch (error) {
+        toast.error("401 (UNAUTHORIZED)", {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
             });
-
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.message);
-            }
-
-            // Redirect to dash.js after successful login or registration
-           //  window.location.href = Dash;
-            
-        } catch (error) {
-            console.error('Error:', error.message);
-        }
-    };
-    render() {
-        return (
-        <form onSubmit={this.handleSubmit}>
-            <div className="form-block__input-wrapper">
-                <div className="form-group form-group--login">
-                    <Input type="text" id="username" label="email" disabled={this.props.mode === 'signup'}/>
-                    <Input type="password" id="password" label="password" disabled={this.props.mode === 'signup'}/>
-                </div>
-                <div className="form-group form-group--signup">
-                    <Input type="text" id="fullname" label="full name" disabled={this.props.mode === 'login'} />
-                    <Input type="email" id="email" label="email" disabled={this.props.mode === 'login'} />
-                    <Input type="password" id="createpassword" label="password" disabled={this.props.mode === 'login'} />
-                    <Input type="password" id="repeatpassword" label="repeat password" disabled={this.props.mode === 'login'} />
-                </div>
-            </div>
-            <button className="button button--primary full-width" type="submit">{this.props.mode === 'login' ? 'Log In' : 'Sign Up'}</button>
-        </form>
-        )
+      console.error('Error:', error.message);
     }
-}
+  };
 
-const Input = ({ id, type, label, disabled }) => (
-    <input className="form-group__input" type={type} id={id} placeholder={label} disabled={disabled}/>
-);
-
-const App = () => (
-    <div className={`app app--is-${mode}`}>
-        <LoginComponent
-            mode={mode}
-            onSubmit={
-                function() {
-                    console.log('submit');
-                }
-            }
-        />
+  return (
+    <div>
+      <div className={`form-block-wrapper form-block-wrapper--is-${mode}`}></div>
+      <section className={`form-block form-block--is-${mode}`}>
+        <header className="form-block__header">
+          <h1>{mode === 'login' ? 'Welcome back!' : 'Sign up'}</h1>
+          <div className="form-block__toggle-block">
+            <span>
+              {mode === 'login' ? "Don't" : 'Already'} have an account? Click here &nbsp; &nbsp;&nbsp; &#8594;
+            </span>
+            <input id="form-toggler" type="checkbox" onClick={toggleMode} />
+            <label htmlFor="form-toggler"></label>
+          </div>
+        </header>
+        <LoginForm mode={mode} formData={formData} onChange={handleChange} onSubmit={handleSubmit} />
+      </section>
+      <ToastContainer />
     </div>
+  );
+};
+
+const LoginForm = ({ mode, formData, onChange, onSubmit }) => {
+  return (
+    <form onSubmit={onSubmit}>
+      <div className="form-block__input-wrapper">
+        <div className={`form-group form-group--${mode}`}>
+          {mode === 'login' ? (
+            <>
+              <Input id="email" type="text" label="email" value={formData.email} onChange={onChange} disabled={mode === 'signup'} />
+              <Input
+                id="password"
+                type="password"
+                label="password1"
+                value={formData.password}
+                onChange={onChange}
+                disabled={mode === 'signup'}
+              />
+            </>
+          ) : (
+            <>
+              <Input id="fullname" type="text" label="full name" value={formData.fullname} onChange={onChange} disabled={mode === 'login'} />
+              <Input id="email" type="email" label="email" value={formData.email} onChange={onChange} disabled={mode === 'login'} />
+              <Input
+                id="createpassword"
+                type="password"
+                label="password"
+                value={formData.createpassword}
+                onChange={onChange}
+                disabled={mode === 'login'}
+              />
+              <Input
+                id="repeatpassword"
+                type="password"
+                label="repeat password"
+                value={formData.repeatpassword}
+                onChange={onChange}
+                disabled={mode === 'login'}
+              />
+            </>
+          )}
+        </div>
+      </div>
+      <button className="button button--primary full-width" type="submit">
+        {mode === 'login' ? 'Log In' : 'Sign Up'}
+      </button>
+      <ToastContainer />
+    </form>
+  );
+};
+
+const Input = ({ id, type, label, value, onChange, disabled }) => (
+  <input className="form-group__input" type={type} id={id} placeholder={label} value={value} onChange={onChange} disabled={disabled} />
 );
 
 export default LoginComponent;
