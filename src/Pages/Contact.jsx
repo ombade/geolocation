@@ -1,87 +1,3 @@
-// import React from "react";
-
-
-// const Contact = () => {
-//   return (
-//     <div id="Contact" style={{height:"800px"}}>
-//       <h1 style={{fontSize:"50px",padding:"20%"}}>
-//         Contact
-//       </h1>
-//     </div>
-//   );
-// };
-
-// export default Contact;
-
-// import React, { useState } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-// const ContactUs = () => {
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     email: '',
-//     message: ''
-//   });
-
-//   const { name, email, message } = formData;
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     // You can add your submission logic here
-//     console.log(formData);
-//     // Reset the form
-//     setFormData({ name: '', email: '', message: '' });
-//   };
-
-//   return (
-//     <div className="container">
-//       <h2>Contact Us</h2>
-//       <form onSubmit={handleSubmit}>
-//         <div className="mb-3">
-//           <label className="form-label">Name:</label>
-//           <input
-//             type="text"
-//             className="form-control"
-//             name="name"
-//             value={name}
-//             onChange={handleChange}
-//             required
-//           />
-//         </div>
-//         <div className="mb-3">
-//           <label className="form-label">Email Address:</label>
-//           <input
-//             type="email"
-//             className="form-control"
-//             name="email"
-//             value={email}
-//             onChange={handleChange}
-//             required
-//           />
-//         </div>
-//         <div className="mb-3">
-//           <label className="form-label">Message:</label>
-//           <textarea
-//             className="form-control"
-//             name="message"
-//             value={message}
-//             onChange={handleChange}
-//             required
-//           />
-//         </div>
-//         <button type="submit" className="btn btn-primary">Submit</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default ContactUs;
-
-
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -101,21 +17,8 @@ const ContactUs = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // You can add your submission logic here
-  //   console.log(formData);
-  //   // Reset the form
-  //   setFormData({ name: '', email: '', message: '' });
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Assuming formData is an object containing the form data
-    // const formData = { name: 'John', email: 'john@example.com', message: 'Hello!' };
-
     try {
       const response = await fetch('https://salmon-painter-hkkrg.pwskills.app:5000/submit_form', {
         method: 'POST',

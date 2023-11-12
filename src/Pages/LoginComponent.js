@@ -2,17 +2,20 @@
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 // import './styles.scss';
+// import { useAuth } from './AuthContext';
 
-// const notify = () => toast("Wow so easy!");
+
 
 // const LoginComponent = () => {
 //   const [mode, setMode] = useState('signup');
 //   const [formData, setFormData] = useState({
 //     email: '',
 //     password: '',
-//     fullname: '',
+//     uid: '',
+//     createpassword: '',
 //     repeatpassword: '',
 //   });
+//   const { auth, login, setuid } = useAuth();
 
 //   const toggleMode = () => {
 //     setMode((prevMode) => (prevMode === 'signup' ? 'login' : 'signup'));
@@ -25,6 +28,21 @@
 
 //   const handleSubmit = async (event) => {
 //     event.preventDefault();
+
+//     if (mode === 'signup' && formData.createpassword !== formData.repeatpassword) {
+//       toast.error("Passwords do not match", {
+//         position: "bottom-left",
+//         autoClose: 5000,
+//         hideProgressBar: false,
+//         closeOnClick: true,
+//         pauseOnHover: true,
+//         draggable: true,
+//         progress: undefined,
+//         theme: "dark",
+//       });
+//       return;
+//     }
+
 //     const url =
 //       mode === 'login'
 //         ? 'https://salmon-painter-hkkrg.pwskills.app:5000/login'
@@ -44,9 +62,33 @@
 //         const error = await response.json();
 //         throw new Error(`Server error: ${error.message}`);
 //       }
-      
-//       window.location.href = 'https://salmon-painter-hkkrg.pwskills.app:5000/';
+
+//       if (mode === 'signup') {
+//         setuid(formData.uid); // Store uid in AuthContext
+//       }
+
+//       login();
+//       toast.error("Login Successful", {
+//         position: "bottom-left",
+//         autoClose: 5000,
+//         hideProgressBar: false,
+//         closeOnClick: true,
+//         pauseOnHover: true,
+//         draggable: true,
+//         progress: undefined,
+//         theme: "dark",
+//       });
 //     } catch (error) {
+//       toast.error("401 (UNAUTHORIZED)", {
+//         position: "bottom-left",
+//         autoClose: 5000,
+//         hideProgressBar: false,
+//         closeOnClick: true,
+//         pauseOnHover: true,
+//         draggable: true,
+//         progress: undefined,
+//         theme: "dark",
+//       });
 //       console.error('Error:', error.message);
 //     }
 //   };
@@ -67,7 +109,7 @@
 //         </header>
 //         <LoginForm mode={mode} formData={formData} onChange={handleChange} onSubmit={handleSubmit} />
 //       </section>
-      
+//       <ToastContainer />
 //     </div>
 //   );
 // };
@@ -79,11 +121,12 @@
 //         <div className={`form-group form-group--${mode}`}>
 //           {mode === 'login' ? (
 //             <>
-//               <Input id="email" type="text" label="email" value={formData.email} onChange={onChange} disabled={mode === 'signup'} />
+//               <Input id="email" type="text" label="Email" required value={formData.email} onChange={onChange} disabled={mode === 'signup'} />
 //               <Input
 //                 id="password"
 //                 type="password"
-//                 label="password1"
+//                 label="Password"
+//                 required
 //                 value={formData.password}
 //                 onChange={onChange}
 //                 disabled={mode === 'signup'}
@@ -91,12 +134,13 @@
 //             </>
 //           ) : (
 //             <>
-//               <Input id="fullname" type="text" label="full name" value={formData.fullname} onChange={onChange} disabled={mode === 'login'} />
-//               <Input id="email" type="email" label="email" value={formData.email} onChange={onChange} disabled={mode === 'login'} />
+//               <Input id="uid" type="text" label="user Id" required value={formData.uid} onChange={onChange} disabled={mode === 'login'} />
+//               <Input id="email" type="email" label="Email" required value={formData.email} onChange={onChange} disabled={mode === 'login'} />
 //               <Input
 //                 id="createpassword"
 //                 type="password"
-//                 label="password"
+//                 label="Password"
+//                 required
 //                 value={formData.createpassword}
 //                 onChange={onChange}
 //                 disabled={mode === 'login'}
@@ -104,7 +148,8 @@
 //               <Input
 //                 id="repeatpassword"
 //                 type="password"
-//                 label="repeat password"
+//                 label="Repeat Password"
+//                 required
 //                 value={formData.repeatpassword}
 //                 onChange={onChange}
 //                 disabled={mode === 'login'}
@@ -116,13 +161,21 @@
 //       <button className="button button--primary full-width" type="submit">
 //         {mode === 'login' ? 'Log In' : 'Sign Up'}
 //       </button>
-//       <ToastContainer />
 //     </form>
 //   );
 // };
 
-// const Input = ({ id, type, label, value, onChange, disabled }) => (
-//   <input className="form-group__input" type={type} id={id} placeholder={label} value={value} onChange={onChange} disabled={disabled} />
+// const Input = ({ id, type, label, value, onChange, disabled, required }) => (
+//   <input
+//     className="form-group__input"
+//     type={type}
+//     id={id}
+//     placeholder={label}
+//     value={value}
+//     onChange={onChange}
+//     disabled={disabled}
+//     required={required}
+//   />
 // );
 
 // export default LoginComponent;
@@ -139,10 +192,12 @@ const LoginComponent = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    fullname: '',
+    uid: '',
+    createpassword: '',
     repeatpassword: '',
   });
-  const { auth, login } = useAuth();
+  const { auth, login, setUid } = useAuth();
+
   const toggleMode = () => {
     setMode((prevMode) => (prevMode === 'signup' ? 'login' : 'signup'));
   };
@@ -153,8 +208,22 @@ const LoginComponent = () => {
   };
 
   const handleSubmit = async (event) => {
-
     event.preventDefault();
+
+    if (mode === 'signup' && formData.createpassword !== formData.repeatpassword) {
+      toast.error("Passwords do not match", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    }
+
     const url =
       mode === 'login'
         ? 'https://salmon-painter-hkkrg.pwskills.app:5000/login'
@@ -172,12 +241,16 @@ const LoginComponent = () => {
 
       if (!response.ok) {
         const error = await response.json();
-
         throw new Error(`Server error: ${error.message}`);
       }
 
+      if (mode === 'login') {
+        const data = await response.json();
+        setUid(data.user); // Store uid in AuthContext
+      }
+
       login();
-      toast.error("login Successfull", {
+      toast.error("Login Successful", {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -186,19 +259,18 @@ const LoginComponent = () => {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
-      // window.location.href = 'https://salmon-painter-hkkrg.pwskills.app:5000/';
+      });
     } catch (error) {
-        toast.error("401 (UNAUTHORIZED)", {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            });
+      toast.error("401 (UNAUTHORIZED)", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       console.error('Error:', error.message);
     }
   };
@@ -231,11 +303,12 @@ const LoginForm = ({ mode, formData, onChange, onSubmit }) => {
         <div className={`form-group form-group--${mode}`}>
           {mode === 'login' ? (
             <>
-              <Input id="email" type="text" label="email" value={formData.email} onChange={onChange} disabled={mode === 'signup'} />
+              <Input id="email" type="text" label="Email" required value={formData.email} onChange={onChange} disabled={mode === 'signup'} />
               <Input
                 id="password"
                 type="password"
-                label="password1"
+                label="Password"
+                required
                 value={formData.password}
                 onChange={onChange}
                 disabled={mode === 'signup'}
@@ -243,12 +316,13 @@ const LoginForm = ({ mode, formData, onChange, onSubmit }) => {
             </>
           ) : (
             <>
-              <Input id="fullname" type="text" label="full name" value={formData.fullname} onChange={onChange} disabled={mode === 'login'} />
-              <Input id="email" type="email" label="email" value={formData.email} onChange={onChange} disabled={mode === 'login'} />
+              <Input id="uid" type="text" label="User Id" required value={formData.uid} onChange={onChange} disabled={mode === 'login'} />
+              <Input id="email" type="email" label="Email" required value={formData.email} onChange={onChange} disabled={mode === 'login'} />
               <Input
                 id="createpassword"
                 type="password"
-                label="password"
+                label="Password"
+                required
                 value={formData.createpassword}
                 onChange={onChange}
                 disabled={mode === 'login'}
@@ -256,7 +330,8 @@ const LoginForm = ({ mode, formData, onChange, onSubmit }) => {
               <Input
                 id="repeatpassword"
                 type="password"
-                label="repeat password"
+                label="Repeat Password"
+                required
                 value={formData.repeatpassword}
                 onChange={onChange}
                 disabled={mode === 'login'}
@@ -268,13 +343,22 @@ const LoginForm = ({ mode, formData, onChange, onSubmit }) => {
       <button className="button button--primary full-width" type="submit">
         {mode === 'login' ? 'Log In' : 'Sign Up'}
       </button>
-      <ToastContainer />
     </form>
   );
 };
 
-const Input = ({ id, type, label, value, onChange, disabled }) => (
-  <input className="form-group__input" type={type} id={id} placeholder={label} value={value} onChange={onChange} disabled={disabled} />
+const Input = ({ id, type, label, value, onChange, disabled, required }) => (
+  <input
+    className="form-group__input"
+    type={type}
+    id={id}
+    placeholder={label}
+    value={value}
+    onChange={onChange}
+    disabled={disabled}
+    required={required}
+  />
 );
 
 export default LoginComponent;
+
