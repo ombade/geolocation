@@ -71,7 +71,7 @@ const ContactUs = () => {
   };
   
 
-
+  const [backgroundColor, setBackgroundColor] = useState('#f8f9fa');
   const cardStyle = {
     maxWidth: '10000px',
     margin: 'auto',
@@ -90,7 +90,7 @@ const ContactUs = () => {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     display: 'flex',
-    backgroundColor:"#1a202c",
+    // backgroundColor:"#1a202c",
     justifyContent: 'center',
     alignItems: 'center',
   };
