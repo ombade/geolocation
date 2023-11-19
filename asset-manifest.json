@@ -1,15 +1,21 @@
 {
   "files": {
     "main.css": "/geolocation/static/css/main.d2749595.css",
-    "main.js": "/geolocation/static/js/main.1b5d6655.js",
+    "main.js": "/geolocation/static/js/main.0a585253.js",
     "static/js/787.bdb0affa.chunk.js": "/geolocation/static/js/787.bdb0affa.chunk.js",
+    "static/media/secure.png": "/geolocation/static/media/secure.d32b58720dd3c12c6632.png",
+    "static/media/smartloc.png": "/geolocation/static/media/smartloc.05793cca5727e1241564.png",
+    "static/media/loc.png": "/geolocation/static/media/loc.2886943adf342d8c768c.png",
+    "static/media/setting.png": "/geolocation/static/media/setting.6b2218a778328c17bbd6.png",
+    "static/media/user.png": "/geolocation/static/media/user.38d551a0ada19062ca2b.png",
+    "static/media/intivit.png": "/geolocation/static/media/intivit.29b60ea04b232d7cc42c.png",
     "index.html": "/geolocation/index.html",
     "main.d2749595.css.map": "/geolocation/static/css/main.d2749595.css.map",
-    "main.1b5d6655.js.map": "/geolocation/static/js/main.1b5d6655.js.map",
+    "main.0a585253.js.map": "/geolocation/static/js/main.0a585253.js.map",
     "787.bdb0affa.chunk.js.map": "/geolocation/static/js/787.bdb0affa.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d2749595.css",
-    "static/js/main.1b5d6655.js"
+    "static/js/main.0a585253.js"
   ]
 }
