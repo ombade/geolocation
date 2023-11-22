@@ -1,6 +1,5 @@
 
 
-// import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { color } from '@chakra-ui/react';
 import React, { useState } from 'react';
@@ -17,7 +16,7 @@ const About = () => {
       name: 'Bade Om',
       linkedin: 'https://www.linkedin.com/in/om-bade/',
       github: 'https://github.com/ombade',
-      imgSrc: 'https://media.licdn.com/dms/image/D5603AQFmy03W-OGJ4w/profile-displayphoto-shrink_400_400/0/1669616262271?e=1703116800&v=beta&t=TtyK8liv8pk0Eabvept8zeD2LLtynK9aj64gYDeRZMA',
+      imgSrc: 'https://media.licdn.com/dms/image/D4D03AQEpOuhexkvISQ/profile-displayphoto-shrink_800_800/0/1700621903566?e=1706140800&v=beta&t=oHy0TymYOsJqvZMXx0fInKegScolR_BAhw8FoiLNtXk',
       info: "B.tech (Computer)",
     },
     {
@@ -33,7 +32,7 @@ const About = () => {
       imgSrc: 'https://media.licdn.com/dms/image/D5603AQF7OwbV5Khf2w/profile-displayphoto-shrink_800_800/0/1697713316694?e=1703116800&v=beta&t=kcXJZ8F3_zpNJ5Yf-ILa0Y6NBBEAgNrPLGkLCali7fE',
       info: "B.tech (Computer)",
     },    {
-      name: 'Developer 1',
+      name: 'Vidya Bombe',
       linkedin: 'https://www.linkedin.com/in/vidya-bombe-739b48296/',
       github: 'github.com',
       imgSrc: 'https://media.licdn.com/dms/image/D5603AQFHSVQ_5JwbRw/profile-displayphoto-shrink_800_800/0/1697640921754?e=1703116800&v=beta&t=hcwpjQ1vssvbYwL53vChLFt9spAkzvml7bDH4xwYLws',

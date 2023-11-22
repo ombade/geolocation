@@ -1,4 +1,6 @@
 import React from 'react';
+import { useAuth } from '../Pages/AuthContext.js';
+import { toast } from 'react-toastify';
 import {
   MDBFooter,
   MDBContainer,
@@ -10,24 +12,55 @@ import {
 } from 'mdb-react-ui-kit';
 
 export default function App() {
+  
+
+  
+    const { auth, uid } = useAuth();
+  const onRegistrationButtonClick = () => {
+    if (auth && uid==="om") {
+      window.location.href = `https://salmon-painter-hkkrg.pwskills.app:5000/`;
+    } else {
+      toast.error("Unauthenticated access not allowed", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      toast.warn("Login first through admin and then access dashboard", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  }; // Make sure this closing brace is correctly placed
+
+// ... rest of your code ...
+
   return (
     <MDBFooter className='text-center' color='white' bgColor='dark'>
-      <MDBContainer className='p-4'>
+      <MDBContainer  className='p-4'>
 
 
 
 
-        <section className='mb-4'>
+        <section className='justify-content-center'>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum repellat quaerat
-            voluptatibus placeat nam, commodi optio pariatur est quia magnam eum harum corrupti dicta, aliquam
-            sequi voluptate quas.
+          ................................................................................ Thanks For Visting Us ................................................................................
           </p>
         </section>
 
         <section className='' >
-          <MDBRow>
-            <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
+          <MDBRow className=' align-items-center'>
+            <MDBCol lg='3' md='3' className='mb-3 mb-md-0 '>
               <h5 className='text-uppercase'>Contact links</h5>
 
               <ul className='list-unstyled mb-0'>
@@ -59,7 +92,7 @@ export default function App() {
                 </li>
                 <li>
                   <a href='https://github.com/ombade/geolocation_backend' className='text-white'>
-                    backend code
+                    backend Code
                   </a>
                 </li>
                 <li>
@@ -76,9 +109,11 @@ export default function App() {
 
               <ul className='list-unstyled mb-0'>
                 <li>
-                  <a href='#!' className='text-white'>
-                    Admin Access 
-                  </a>
+                  {/* <a href='#!' className='text-white'>
+                    kfj
+                  </a> */}
+                {/* <input type='button'>Admi access</input> */}
+                <button  onClick={onRegistrationButtonClick}>addmin accesss</button>
                 </li>
                 <li>
                   <a href='#!' className='text-white'>
@@ -94,17 +129,13 @@ export default function App() {
               </ul>
             </MDBCol>
 
-            <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
-              
-
-              
-            </MDBCol>
+          
           </MDBRow>
         </section>
       </MDBContainer>
 
       <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-        © 2023 Copyright:
+        © 2023 Copyright:&nbsp;
         <a className='text-white' href=''>
           GELOCATION
         </a>

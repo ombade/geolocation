@@ -19,9 +19,9 @@ function App() {
           <Navbar />
           <Home />
           <Projects />
-        
-          <About />
           <Contact />
+          <About />
+          
           <Footer />
         </div>
       </Router>
