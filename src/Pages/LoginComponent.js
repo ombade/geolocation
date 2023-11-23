@@ -61,11 +61,23 @@ const LoginComponent = () => {
       if (!response.ok) {
         const error = await response.json();
         throw new Error(`Server error: ${error.message}`);
+        toast.error(error, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        
+
       }
 
-      if (mode === 'login' ) {
+      if (mode === 'login' || mode === 'signup') {
         const data = await response.json();
-        setUid(data.user); // Store uid in AuthContext
+        setUid(data.user); 
       }
 
       login();
@@ -90,6 +102,16 @@ const LoginComponent = () => {
         progress: undefined,
         theme: "dark",
       });
+      toast.info('For more Info Contact Admin', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
       console.error('Error:', error.message);
     }
   };

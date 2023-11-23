@@ -94,7 +94,7 @@ export default function Navbar({ mode, setMode }) {
 
             <Show breakpoint="(min-width: 1000px)">
               {" "}
-              {/* <Photo /> */}
+              
             </Show>
           </HStack>
 
