@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/geolocation/static/css/main.6199b50b.css",
-    "main.js": "/geolocation/static/js/main.35824d8a.js",
+    "main.css": "/geolocation/static/css/main.13ce23e2.css",
+    "main.js": "/geolocation/static/js/main.1c6ca058.js",
     "static/js/787.3cb4aa01.chunk.js": "/geolocation/static/js/787.3cb4aa01.chunk.js",
     "static/media/Current location (2).gif": "/geolocation/static/media/Current location (2).fd63130ab33174557eab.gif",
     "static/media/suppot.gif": "/geolocation/static/media/suppot.392c10f82a1fcbc2b2a6.gif",
@@ -12,12 +12,12 @@
     "static/media/user.png": "/geolocation/static/media/user.38d551a0ada19062ca2b.png",
     "static/media/intivit.png": "/geolocation/static/media/intivit.29b60ea04b232d7cc42c.png",
     "index.html": "/geolocation/index.html",
-    "main.6199b50b.css.map": "/geolocation/static/css/main.6199b50b.css.map",
-    "main.35824d8a.js.map": "/geolocation/static/js/main.35824d8a.js.map",
+    "main.13ce23e2.css.map": "/geolocation/static/css/main.13ce23e2.css.map",
+    "main.1c6ca058.js.map": "/geolocation/static/js/main.1c6ca058.js.map",
     "787.3cb4aa01.chunk.js.map": "/geolocation/static/js/787.3cb4aa01.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6199b50b.css",
-    "static/js/main.35824d8a.js"
+    "static/css/main.13ce23e2.css",
+    "static/js/main.1c6ca058.js"
   ]
 }
