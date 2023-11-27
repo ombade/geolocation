@@ -145,8 +145,7 @@ const About = () => {
         ))}
       </div>
       <div>
-        <h3 style={headingStyle}>Project Info</h3>
-        <p>Short info about the project.</p>
+       
       </div>
     </div>
   );
