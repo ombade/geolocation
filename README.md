@@ -41,7 +41,7 @@ Find the Flask backend code in the https://github.com/ombade/geolocation_backend
 
 ## Live Demo
 
-Check out the live demo of the Geolocation Dashboard [(https://ombade.github.io/geolocation/#Projects)](#your-live-demo-link). Experience the features firsthand and visualize geolocation data in real-time!
+Check out the live demo of the Geolocation Dashboard https://ombade.github.io/geolocation/#Projects Experience the features firsthand and visualize geolocation data in real-time!
 
 ## How to Clone and Deploy
 
@@ -83,5 +83,3 @@ Follow these steps to clone and deploy the project locally:
 Contributions are welcome! Feel free to submit issues or pull requests to enhance the project.
 
 ---
-
-Please replace placeholders like `#your-live-demo-link` with the actual URLs and customize the instructions based on your project structure and deployment process.
