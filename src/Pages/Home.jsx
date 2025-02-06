@@ -14,7 +14,7 @@ const HomePage = () => {
           fontFamily: "Rubik, sans-serif",
           color: "#ff745c",
           lineHeight: 1
-        }}>Remember with</h1>
+        }}>You Deserve Better</h1>
 
         <h1 className="typewriter-text">
           <Typewriter
@@ -24,15 +24,15 @@ const HomePage = () => {
             }}
             onInit={(typewriter) => {
               typewriter
-                .typeString('LOCATION')
+                .typeString('LIFE')
                 .pauseFor(1000)
                 .deleteAll()
                 .pauseFor(1000)
                 .deleteAll()
-                .typeString('GEO-ALERT')
+                .typeString('FOCUS')
                 .pauseFor(1000)
                 .deleteAll()
-                .typeString('GEOLOCATION')
+                .typeString('Balance')
                 .pauseFor(1000)
                 .deleteAll()
                 .pauseFor(1000)
@@ -51,7 +51,7 @@ const HomePage = () => {
           textAlign: "center",
           margin: "0",
           padding: "10px",
-        }}>Stay Aware, Anywhere:<br />Your Personal Location Companion.</h1>
+        }}>Your Personal Self-Help Companion</h1>
       </div>
 
       <div className="gif-container">

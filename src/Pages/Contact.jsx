@@ -1,153 +1,172 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import '../MusicTherapy.css';
+import study from './audio/study.mp3';
+import suppot from './imgs/suppot.gif'
+import hk from './imgs/hk.jpg';
+import smMor from './imgs/smMor.jpg'
+import { color } from '@chakra-ui/react';
 
-import '../App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import support from "./imgs/suppot.gif"
-const notify = () => toast("Wow so easy!");
+// Sample Data (categories with audio tracks inside them)
+const audioCategories = {
+  binauralBeats: [
+    {
+      title: "Study Beats",
+      description: "Focus better with binaural beats designed for studying.",
+      src: study, // Directly reference file path
+      backgroundImage: suppot, // Background image for Study Beats
+    },
+    {
+      title: "Meditation Beats",
+      description: "Relax with binaural beats for deep meditation.",
+      src: "./audio/meditation.mp3",
+      backgroundImage: "./images/meditation-bg.jpg", // Background image for Meditation Beats
+    },
 
+    {
+      title: "Meditation Beats",
+      description: "Relax with binaural beats for deep meditation.",
+      src: "./audio/meditation.mp3",
+      backgroundImage: "./images/meditation-bg.jpg", // Background image for Meditation Beats
+    },
+    {
+      title: "Meditation Beats",
+      description: "Relax with binaural beats for deep meditation.",
+      src: "./audio/meditation.mp3",
+      backgroundImage: "./images/meditation-bg.jpg", // Background image for Meditation Beats
+    },
+    {
+      title: "Meditation Beats",
+      description: "Relax with binaural beats for deep meditation.",
+      src: "./audio/meditation.mp3",
+      backgroundImage: "./images/meditation-bg.jpg", // Background image for Meditation Beats
+    },
+    {
+      title: "Meditation Beats",
+      description: "Relax with binaural beats for deep meditation.",
+      src: "./audio/meditation.mp3",
+      backgroundImage: "./images/meditation-bg.jpg", // Background image for Meditation Beats
+    },
+    {
+      title: "Meditation Beats",
+      description: "Relax with binaural beats for deep meditation.",
+      src: "./audio/meditation.mp3",
+      backgroundImage: "./images/meditation-bg.jpg", // Background image for Meditation Beats
+    },
+    {
+      title: "Meditation Beats",
+      description: "Relax with binaural beats for deep meditation.",
+      src: "./audio/meditation.mp3",
+      backgroundImage: './', // Background image for Meditation Beats
+    },
+    {
+      title: "Meditation Beats",
+      description: "Relax with binaural beats for deep meditation.",
+      src: "./audio/meditation.mp3",
+      backgroundImage: "./images/meditation-bg.jpg", // Background image for Meditation Beats
+    },
+    {
+      title: "Meditation Beats",
+      description: "Relax with binaural beats for deep meditation.",
+      src: "./audio/meditation.mp3",
+      backgroundImage: "./images/meditation-bg.jpg", // Background image for Meditation Beats
+    },
+  ],
+  asmr: [
+    {
+      title: "Rain Sounds",
+      description: "Soothing rain sounds for relaxation.",
+      src: "./audio/rain.mp3",
+      backgroundImage: "./images/rain-bg.jpg", // Background image for Rain Sounds
+    },
+    {
+      title: "Ocean Waves",
+      description: "Gentle waves for peaceful sleep.",
+      src: "./audio/ocean.mp3",
+      backgroundImage: "./images/ocean-bg.jpg", // Background image for Ocean Waves
+    },
+  ],
+  calmMusic: [
+    {
+      title: "Radhe Radhe Govinda",
+      description: "Relax with soft and soothing piano music.",
+      src: "./audio/piano.mp3",
+      backgroundImage: hk, // Background image for Calm Piano
+    },
+    {
+      title: "Forest Ambience",
+      description: "Calming forest sounds with birds and wind.",
+      src: "./audio/forest.mp3",
+      backgroundImage: smMor, // Background image for Forest Ambience
+    },
+  ],
+};
 
-const ContactUs = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+function MusicTherapy() {
+  const [currentCategory, setCurrentCategory] = useState(null);
+  const [currentAudio, setCurrentAudio] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  const { name, email, message } = formData;
+  const audioRef = useRef(null);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('https://salmon-painter-hkkrg.pwskills.app:5000/submit_form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      if (response.ok) {
-        toast.success("Message Send Successfull, will contact you Soon", {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
-        console.log('Form data successfully submitted to the backend.');
-        // Reset the form
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        console.error('Failed to submit form data to the backend.');
-        toast.error('Failed to submit form data to the backend.', {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
-      }
-    } catch (error) {
-      console.error('An error occurred while submitting form data:', error);
-      toast.error('An error occurred while submitting form data:', {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        });
+  const playPauseHandler = (audio) => {
+    if (currentAudio === audio && isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      setCurrentAudio(audio);
+      audioRef.current.play();
+      setIsPlaying(true);
     }
   };
-  
 
-  const [backgroundColor, setBackgroundColor] = useState('#f8f9fa');
-  const cardStyle = {
-    maxWidth: '1000px',
-    margin: '90px',
-    height: '500px',
-    width :'390px',
-    marginTop: '50px',
-    padding: '40px',
-    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-    backgroundColor: '#ffac9d',
-    borderRadius: '10px',
-  };
-
-  const backgroundStyle = {
-   
-    height: '100vh',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    display: 'flex',
-    // backgroundColor:"#1a202c",
-    justifyContent: 'center',
-    alignItems: 'center',
+  const handleCategoryClick = (category) => {
+    setCurrentCategory(category);
+    setCurrentAudio(null); // Reset the current audio when changing categories
+    setIsPlaying(false); // Pause audio when changing categories
   };
 
   return (
-    <div id='Contact' style={backgroundStyle}>
-          <div className="gif-container" style={backgroundStyle}>
-                <img className="responsive-gif" src={support} alt="GIF" />
-            </div>
-      <div style={cardStyle}>
-  
-        <h2 style={{ marginBottom: '30px', textAlign: 'center' }}>Contact Us</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label className="form-label">Name:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="name"
-              value={name}
-              onChange={handleChange}
-              required
-            />
+    <div className="music-therapy">
+      <h1>Music Therapy</h1>
+
+      <div className="navbar">
+        {Object.keys(audioCategories).map((category) => (
+          <div
+            key={category}
+            className="navbar-item"
+            onClick={() => handleCategoryClick(category)}
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1')}
           </div>
-          <div className="mb-3">
-            <label className="form-label">Email Address:</label>
-            <input
-              type="email"
-              className="form-control"
-              name="email"
-              value={email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Message:</label>
-            <textarea
-              className="form-control"
-              name="message"
-              value={message}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-            Submit
-          </button>
-        </form>
+        ))}
       </div>
-     
-      <ToastContainer />
+
+      {currentCategory && (
+        <div className="audio-list">
+          {audioCategories[currentCategory].map((audio, index) => (
+            <div key={index} className="audio-item" style={{ backgroundImage: `url(${audio.backgroundImage})` }}>
+              <h3 >{audio.title}</h3>
+              <p>{audio.description}</p>
+              <div className="audio-controls">
+                <button onClick={() => playPauseHandler(audio)}>
+                  {currentAudio === audio && isPlaying ? "Pause" : "Play"}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {currentAudio && (
+        <audio
+          ref={audioRef}
+          src={currentAudio.src}
+          onEnded={() => setIsPlaying(false)}
+          preload="auto"
+        />
+      )}
     </div>
   );
-};
+}
 
-export default ContactUs;
+export default MusicTherapy;

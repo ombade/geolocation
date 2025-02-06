@@ -1,154 +1,187 @@
+// import React, { useEffect, useRef, useState } from "react";
+// import anime from "animejs";
+// import '../MusicTherapy.css';
 
+// const BoxBreathing = () => {
+//   const ballRef = useRef(null);
+//   const audioRef = useRef(new Audio("/background-music.mp3"));
+//   const [isPlaying, setIsPlaying] = useState(false);
+//   const [phase, setPhase] = useState("Inhale");
+//   const [timeLeft, setTimeLeft] = useState(5);
+//   const animationRef = useRef(null);
+//   const timerRef = useRef(null);
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { color } from '@chakra-ui/react';
-import React, { useState } from 'react';
+//   useEffect(() => {
+//     animationRef.current = anime.timeline({
+//       loop: true,
+//       autoplay: false,
+//     });
 
-// const About = () => {
-//   const [backgroundColor, setBackgroundColor] = useState('#f8f9fa'); // Initial background color
+//     animationRef.current
+//       .add({
+//         targets: ballRef.current,
+//         translateY: [200, 0], // Move Up
+//         duration: 5000,
+//         easing: "easeInOutSine",
+//         begin: () => updatePhase("Inhale"),
+//       })
+//       .add({
+//         targets: ballRef.current,
+//         translateX: [0, 200], // Move Right
+//         duration: 5000,
+//         easing: "easeInOutSine",
+//         begin: () => updatePhase("Hold (Top)"),
+//       })
+//       .add({
+//         targets: ballRef.current,
+//         translateY: [0, 200], // Move Down
+//         duration: 5000,
+//         easing: "easeInOutSine",
+//         begin: () => updatePhase("Exhale"),
+//       })
+//       .add({
+//         targets: ballRef.current,
+//         translateX: [200, 0], // Move Left
+//         duration: 5000,
+//         easing: "easeInOutSine",
+//         begin: () => updatePhase("Hold (Bottom)"),
+//       });
+//   }, []);
 
-//   const handleThemeChange = (color) => {
-//     setBackgroundColor(color);
+//   const updatePhase = (newPhase) => {
+//     setPhase(newPhase);
+//     setTimeLeft(5);
+
+//     if (timerRef.current) clearInterval(timerRef.current);
+//     timerRef.current = setInterval(() => {
+//       setTimeLeft((prev) => (prev > 1 ? prev - 1 : 5));
+//     }, 1000);
 //   };
-const About = () => {
-  const developers = [
-    {
-      name: 'Bade Om',
-      linkedin: 'https://www.linkedin.com/in/om-bade/',
-      github: 'https://github.com/ombade',
-      imgSrc: 'https://media.licdn.com/dms/image/D4D03AQEpOuhexkvISQ/profile-displayphoto-shrink_800_800/0/1700621903566?e=1706140800&v=beta&t=oHy0TymYOsJqvZMXx0fInKegScolR_BAhw8FoiLNtXk',
-      info: "B.tech (Computer)",
-    },
-    {
-      name: 'Yash Agre',
-      linkedin: 'linkedin.com',
-      github: 'github.com',
-      imgSrc: 'https://media.licdn.com/dms/image/D4D03AQFhXZXSfxM6Zg/profile-displayphoto-shrink_800_800/0/1697685374468?e=1703116800&v=beta&t=WHlBmjZWJmbU-nKsHVZ_4E95vqhJHQKdCbBTH_TnmmM',
-      info: "B.tech (Computer)",
-    },    {
-      name: 'Dipika Dahifale',
-      linkedin: 'https://www.linkedin.com/in/dipika-dahifale-17a277234/',
-      github: 'github.com',
-      imgSrc: 'https://media.licdn.com/dms/image/D5603AQF7OwbV5Khf2w/profile-displayphoto-shrink_800_800/0/1697713316694?e=1703116800&v=beta&t=kcXJZ8F3_zpNJ5Yf-ILa0Y6NBBEAgNrPLGkLCali7fE',
-      info: "B.tech (Computer)",
-    },    {
-      name: 'Vidya Bombe',
-      linkedin: 'https://www.linkedin.com/in/vidya-bombe-739b48296/',
-      github: 'github.com',
-      imgSrc: 'https://media.licdn.com/dms/image/D5603AQFHSVQ_5JwbRw/profile-displayphoto-shrink_800_800/0/1697640921754?e=1703116800&v=beta&t=hcwpjQ1vssvbYwL53vChLFt9spAkzvml7bDH4xwYLws',
-      info: "B.tech (Computer)",
-    },
-  
-  ];
 
-  const guides = [
-    {
-      name: 'Prof. J. N. Kale',
-      imgSrc: 'https://sanjivanicoe.org.in/media/k2/items/cache/aaa082d2257ab65aecf61c2340e9c5b9_S.jpg?t=20230517_080451',
-      info: 'WEB Techology guide',
-    },
-    {
-      name: 'Prof. Kiran .S. Katke',
-      imgSrc: 'https://sanjivanicoe.org.in/media/k2/items/cache/71ab1197965a26d2e4379f8b23c36ebb_S.jpg',
-      info: 'Computer Network Guide',
-    },
-    // Add information for other guides
-  ];
-  const [backgroundColor, setBackgroundColor] = useState('#f8f9fa');
-  const cardStyle = {
-      margin: '10px',
-    padding: '20px',
-    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-    borderRadius: '10px',
-    display: 'flex',
-    background: 'rgb(255, 204, 204)',
-   
-    alignItems: 'center',
+//   const toggleAnimation = () => {
+//     if (isPlaying) {
+//       animationRef.current.pause();
+//       clearInterval(timerRef.current);
+//       audioRef.current.pause();
+//     } else {
+//       animationRef.current.play();
+//       audioRef.current.play();
+//       audioRef.current.loop = true;
+//     }
+//     setIsPlaying(!isPlaying);
+//   };
+
+//   return (
+//     <div className="breathing-container">
+//       <h1 className="title">Box Breathing</h1>
+//       <div className="graph-container">
+//         <div className="container"> <div ref={ballRef} className="ball"></div></div>
+       
+//       </div>
+//       <div className="timer-container">
+//         <p>Phase: <strong>{phase}</strong></p>
+//         <p>Time Left: <strong>{timeLeft}s</strong></p>
+//       </div>
+//       <button onClick={toggleAnimation} className="start-button">
+//         {isPlaying ? "Pause" : "Start"}
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default BoxBreathing;
+import React, { useEffect, useRef, useState } from "react";
+import anime from "animejs";
+import '../MusicTherapy.css';
+import box from './audio/box.mp3'
+
+const BoxBreathing = () => {
+  const ballRef = useRef(null);
+  const audioRef = useRef(new Audio(box));
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [phase, setPhase] = useState("Inhale");
+  const [timeLeft, setTimeLeft] = useState(5);
+  const animationRef = useRef(null);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    animationRef.current = anime.timeline({
+      loop: true,
+      autoplay: false,
+    });
+
+    animationRef.current
+      .add({
+        targets: ballRef.current,
+        translateY: [200, 0], // Move Up
+        duration: 5000,
+        easing: "easeInOutSine",
+        begin: () => updatePhase("Inhale"),
+      })
+      .add({
+        targets: ballRef.current,
+        translateX: [0, 200], // Move Right
+        duration: 5000,
+        easing: "easeInOutSine",
+        begin: () => updatePhase("Hold (Top)"),
+      })
+      .add({
+        targets: ballRef.current,
+        translateY: [0, 200], // Move Down
+        duration: 5000,
+        easing: "easeInOutSine",
+        begin: () => updatePhase("Exhale"),
+      })
+      .add({
+        targets: ballRef.current,
+        translateX: [200, 0], // Move Left
+        duration: 5000,
+        easing: "easeInOutSine",
+        begin: () => updatePhase("Hold (Bottom)"),
+        complete: () => updatePhase("Inhale"), // Ensure the phase resets to Inhale
+      });
+  }, []);
+
+  const updatePhase = (newPhase) => {
+    setPhase(newPhase);
+    setTimeLeft(5);
+
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => (prev > 1 ? prev - 1 : 5));
+    }, 1000);
   };
-  
-  const cardStyle1 = {
-    margin: '10px',
-    
-  padding: '20px',
-  boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-  borderRadius: '10px',
- backgroundcolor: 'rgb(255, 204, 204)',
- background: 'rgb(255, 204, 204)',
-  display: 'flex',
- 
-  alignItems: 'center',
-};
-  const buttonStyle = {
-    margin: '5px',
-    fontSize: '16px',
-  };
-  const imgStyle = {
-    width: '100px',
-    height: '100px',
-    borderRadius: '50%',
-    objectFit: 'cover',
-    // marginRight: '20px',
-  };
-  const headingStyle = {
-    fontFamily: 'Arvo, sans-serif',
-    fontWeight: 'bold',
+
+  const toggleAnimation = () => {
+    if (isPlaying) {
+      animationRef.current.pause();
+      clearInterval(timerRef.current);
+      audioRef.current.pause();
+    } else {
+      animationRef.current.play();
+      audioRef.current.play();
+      audioRef.current.loop = true;
+    }
+    setIsPlaying(!isPlaying);
   };
 
   return (
-    <div style={{ margin: '20px' }}>
-      <h2 style={headingStyle}>About Us</h2>
-      <div className="row justify-content-center">
-        <h3 style={headingStyle}>Guides</h3>
-        {guides.map((guide, index) => (
-          <div key={index} className="col-md-3">
-            <div className="card" style={cardStyle}>
-              <img src={guide.imgSrc} className="card-img-top" alt="guide" style={imgStyle} />
-              <div className="card-body">
-                <h5 className="card-title">{guide.name}</h5>
-                <p className="card-text">{guide.info}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="row">
-        <h3 style={headingStyle}>Developers</h3>
-        {developers.map((developer, index) => (
-          <div key={index} className="col-md-3">
-            <div className="card" style={cardStyle1 }>
-              <img
-                src={developer.imgSrc}
-                className="card-img-top"
-                alt="developer"
-                style={imgStyle}
-              />
-              <div className="card-body">
-                <h5 className="card-title">{developer.name}</h5>
-                <p className="card-text">{developer.info}</p>
-                <a
-                  href={developer.linkedin}
-                  className="btn btn-primary"
-                  style={buttonStyle}
-                >
-                  LinkedIn
-                </a>
-                <a
-                  href={developer.github}
-                  className="btn btn-secondary"
-                  style={buttonStyle}
-                >
-                  GitHub
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div>
+    <div className="breathing-container">
+      <h1 className="title">Box Breathing</h1>
+      <div className="graph-container">
+        <div className="container"> <div ref={ballRef} className="ball"></div>
+        </div>
+        </div>
        
+      <div className="timer-container">
+        <p>Phase: <strong>{phase}</strong></p>
+        <p>Time Left: <strong>{timeLeft}s</strong></p>
       </div>
+      <button onClick={toggleAnimation} className="start-button">
+        {isPlaying ? "Pause" : "Start"}
+      </button>
     </div>
   );
-        };  
+};
 
-export default About;
+export default BoxBreathing;
